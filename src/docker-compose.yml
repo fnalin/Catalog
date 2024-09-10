@@ -1,0 +1,14 @@
+﻿name: "catalog"
+
+services:
+  db:
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: 123456@qwerty
+      MSSQL_USER: "SA"
+    image: mcr.microsoft.com/azure-sql-edge
+    cap_add:
+      - SYS_PTRACE
+    ports:
+      - "1433:1433"
+    restart: always

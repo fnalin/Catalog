@@ -1,0 +1,53 @@
+@page "/product/create"
+@page "/product/update/{Id:int}"
+
+@rendermode InteractiveAuto
+
+@{ var textTitle = Id > 0 ? "Edit" : "Add"; }
+<h3>@textTitle Product</h3>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Add Product</div>
+                <div class="card-body">
+                    <EditForm Model="ProductModel" OnValidSubmit="HandleSaveAsync" FormName="CreateUpdateProduct">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+                        <div class="form-group">
+                            <label class="form-label">Name</label>
+                            <InputText @bind-Value="ProductModel.Name" class="form-control"></InputText>
+                            <ValidationMessage For="()=>ProductModel.Name"></ValidationMessage>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Price</label>
+                            <InputNumber @bind-Value="ProductModel.Price" class="form-control"></InputNumber>
+                            <ValidationMessage For="()=>ProductModel.Price"></ValidationMessage>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Category</label>
+                            <InputSelect @bind-Value="ProductModel.CategoryId" class="form-control">
+                                <option value="">Select a category</option>
+                                @foreach (var category in Categories)
+                                {
+                                    <option value="@category.Id">@category.Name</option>
+                                }
+                            </InputSelect>
+                            <ValidationMessage For="()=>ProductModel.CategoryId"></ValidationMessage>
+                        </div>
+                        
+                        <div class="m-3 p-3">
+                            <button type="submit" class="btn btn-outline-primary">Save</button>
+                            <a href="/products" class="btn btn-outline-warning">Cancelar</a>
+                        </div>
+                    </EditForm>
+                </div>
+                
+            </div>
+
+
+        </div>
+    </div>
+</div>

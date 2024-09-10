@@ -1,0 +1,40 @@
+@page "/products"
+@rendermode InteractiveAuto
+
+<h3>List of Products</h3>
+
+
+
+@if (Products == null)
+{
+    <p>loading ...</p>
+}
+else
+{
+    <a class="btn btn-outline-primary" href="/product/create">Create new Product</a>
+    
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var product in Products)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Price</td>
+                <td>@product.Category.Name</td>
+                <td>
+                    <a class="btn btn-secondary" href="/product/update/@product.Id">Update</a>
+                    <button class="btn btn-danger" @onclick="()=>DeleteProductAsync(product.Id)">Delete</button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
